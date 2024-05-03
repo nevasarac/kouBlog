@@ -1,4 +1,5 @@
 using kouBlog.Models;
+using kouBlog.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -22,6 +23,12 @@ namespace kouBlog.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginDto loginDto)
+        {
+            return RedirectToAction("Index","Admin");
         }
 
         [HttpGet]
