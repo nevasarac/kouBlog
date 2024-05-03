@@ -19,5 +19,10 @@ namespace kouBlog.Controllers
             return View();
         }
 
+
+        public IActionResult PostDetail()
+        {
+            return View();
+        }
     }
 }

@@ -1,36 +1,38 @@
 ﻿@{
     Layout = "/Views/Shared/_LayoutvanGoghAdmin.cshtml";
 }
+@model kouBlog.Models.DTO.NewPostDto;
 
 <div class="container">
     <div class="center-card">
         <div class="card">
             <div class="card-header">
-                Tüm Yazılar
+                Yeni Yazı
             </div>
             <div class="card-body">
-                <div class="tweet-card">
-                    <div class="tweet-content">
-                        <h2>PostName</h2><h4>(Kategori : )</h4>
-                        <p> PostContent PostContent PostContent PostContent PostContent</p>
-                    </div>
-                    <div class="tweet-actions">
-                        <a href="/Post/LikeIt/" class="like-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M4 21h1V8H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2zM20 8h-7l1.122-3.368A2 2 0 0 0 12.225 2H12L7 7.438V21h11l3.912-8.596L22 12v-2a2 2 0 0 0-2-2z"></path></svg>
-                            <label style="text-decoration:none">5</label>
-                        </a>
-                        <a href="/Admin/PostDetail/" class="comment-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M20 2H4c-1.103 0-2 .897-2 2v18l5.333-4H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14H6.667L4 18V4h16v12z"></path></svg>
-                        </a>
-                    </div>
-                </div>
-                <br />
+                @using (Html.BeginForm("NewPost", "Post", FormMethod.Post))
+                {
+                    @Html.TextBoxFor(m => m.PostName, new { @class = "form-control", placeholder = "Yeni Yazı Başlığı" })
+                    <br />
+                    @Html.TextBoxFor(m => m.PostContent, new { @class = "form-control", placeholder = "Yeni Yazı İçeriği" })
+                    <br />
+                    <button id="add-button" style="margin-left:10px;">Ekle</button>
+                }
             </div>
         </div>
     </div>
 </div>
 
 <style>
+    .form-control {
+        width: 200px; /* Dilediğiniz genişliği belirleyin */
+        border: 1px solid #ccc;
+        border-radius: 10px; /* Kenarları yuvarlatma miktarı */
+        padding: 10px;
+        background-color: #fff; /* Arka plan rengi */
+        color: #333; /* Metin rengi */
+    }
+
     .container {
         display: flex;
         justify-content: center;
@@ -77,7 +79,7 @@
         }
 
         .table th {
-            background-color: #f0f0f0;
+            background-color: #d6d4d6;
         }
 
     .alt-card {
@@ -112,7 +114,7 @@
     }
 
     .like-button,
-    .comment-button {
+    .comment-button,#add-button {
         background-color: #428a6b;
         color: #fff;
         border: none;
@@ -124,7 +126,7 @@
     }
 
         .like-button:hover,
-        .comment-button:hover {
+        .comment-button:hover, #add-button:hover {
             background-color: #295442;
         }
 </style>

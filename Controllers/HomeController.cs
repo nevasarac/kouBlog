@@ -28,7 +28,7 @@ namespace kouBlog.Controllers
         [HttpPost]
         public IActionResult Login(LoginDto loginDto)
         {
-            return RedirectToAction("Index","Admin");
+            return RedirectToAction("Index","Customer");
         }
 
         [HttpGet]
@@ -46,6 +46,11 @@ namespace kouBlog.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Logout()
+        {
+            return RedirectToAction("Login","Home");
         }
     }
 }
