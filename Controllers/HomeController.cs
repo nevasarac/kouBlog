@@ -15,6 +15,18 @@ namespace kouBlog.Controllers
 
         public IActionResult Index()
         {
+            return RedirectToAction("Login","Home");
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
             return View();
         }
 

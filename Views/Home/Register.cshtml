@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = "/Views/Shared/_LayoutvanGogh.cshtml";
+}
+
+@model kouBlog.Models.DTO.RegisterDto
+
+<div class="login-div">
+    <div class="register">
+        <h2>Kaydol</h2>
+        <form id="register-form" asp-controller="Home" asp-action="Register" method="post">
+            <div class="input-container">
+                <input type="text" id="re-name" asp-for="Name" placeholder="Ad" required>
+            </div>
+            <div class="input-container">
+                <input type="text" id="re-surname" asp-for="Surname" placeholder="Soyad" required>
+            </div>
+            <div class="input-container">
+                <input type="text" id="re-mail" asp-for="Mail" placeholder="Mail" required>
+            </div>
+            <div class="input-container">
+                <input type="password" id="re-password" asp-for="Password" placeholder="Şifre" required>
+            </div>
+            <br />
+            <div class="input-container">
+                <label style="color:darkred;">> Şifreniz en az bir adet büyük harf,en az bir adet sayı ve en az bir adet karakter içermelidir.</label>
+                <br />
+                <br />
+                <label style="color:darkred;">> Şifre uzunluğu minimum 8 karakter olmalıdır.</label>
+                <br />
+                <br />
+                <label style="color:darkred;">> Aynı mail ile birden fazla hesap oluşturamazsınız.</label>
+            </div>
+            <br />
+            <button type="submit" id="register-button">Kaydol</button>
+            <hr />
+        </form>
+        <form asp-controller="Home" asp-action="Login" method="get">
+            <button type="submit" id="goto-login">Giriş Ekranına Dön</button>
+        </form>
+    </div>
+</div>

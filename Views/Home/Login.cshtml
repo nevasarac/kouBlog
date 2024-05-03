@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "/Views/Shared/_LayoutvanGogh.cshtml";
+}
+
+@model kouBlog.Models.DTO.LoginDto
+
+<div class="login-div">
+    <div class="login">
+        <h2>Giriş Yap</h2>
+        <form id="login-form" asp-controller="Home" asp-action="Login" method="post">
+            <div class="input-container">
+                <input type="text" id="login-mail" asp-for="Mail" placeholder="Mail" required>
+            </div>
+            <div class="input-container">
+                <input type="password" id="login-password" asp-for="Password" placeholder="Şifre" required>
+            </div>
+            <br />
+            <div class="input-container">
+                <div class="left-i">
+                    <input type="checkbox" id="input-rememberme" asp-for="RememberMe" />
+                    <label for="input-rememberme" id="input-rememberme-label">Beni Hatırla</label>
+                </div>
+                <div class="right-i">
+                    
+                </div>
+                <br />
+            </div>
+            <button type="submit" id="login-button">Giriş Yap</button>
+            <hr />
+        </form>
+        <form asp-controller="Home" asp-action="Register" method="get">
+            <button type="submit" id="goto-register">Kayıt Ol</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    a {
+        text-decoration: none;
+        color: #4400FF;
+    }
+    right-i{
+        display:flex;
+        float:right;
+    }
+    left-i{
+        display:flex;
+        float:left;
+    }
+</style>
