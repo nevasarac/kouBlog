@@ -23,4 +23,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="kouBlog-Entity\kouBlog-Entity\obj\ClassLibrary1.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="kouBlog-Entity\kouBlog-Entity\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="kouBlog-Entity\kouBlog-Entity\obj\project.packagespec.json" />
+  </ItemGroup>
+
 </Project>
