@@ -24,7 +24,7 @@
                     </div>
                     <div class="tweet-actions">
                         <a href="/Comment/LikeIt/CommentID" class="like-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M4 21h1V8H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2zM20 8h-7l1.122-3.368A2 2 0 0 0 12.225 2H12L7 7.438V21h11l3.912-8.596L22 12v-2a2 2 0 0 0-2-2z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);"><path d="M4 21h1V8H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2zM20 8h-7l1.122-3.368A2 2 0 0 0 12.225 2H12L7 7.438V21h11l3.912-8.596L22 12v-2a2 2 0 0 0-2-2z"></path></svg>
                             <label>CommentNumberofLike</label>
                         </a>
                     </div>
@@ -33,7 +33,7 @@
 
                 <h2>Yorum Ekle</h2>
 
-                <form asp-controller="Comment" asp-action="Insert" method="post">
+                <form method="post">
                     <div class="tweet-card">
                         <div class="tweet-content">
                             <input type="text" placeholder="Yorum Başlığı" />
@@ -41,7 +41,7 @@
                             <input type="text" placeholder="Yorumunuz" />
                         </div>
                         <div class="tweet-actions">
-                            <button class="like-button" type="submit">Ekle</buttonlike-button>
+                            <button class="like-button" type="submit">Ekle</button>
                         </div>
                     </div>
                 </form>
@@ -101,7 +101,7 @@
         }
 
     .alt-card {
-        background-color: ebd5b7;
+        background-color: #ebd5b7;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         width: 800px;
