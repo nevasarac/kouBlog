@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "/Views/Shared/_LayoutvanGoghAdmin.cshtml";
 }
-
+@model kouBlog.Models.DTO.PostDto
 <div class="container">
     <div class="center-card">
         <div class="card">
@@ -36,9 +36,9 @@
                 <form asp-controller="Comment" asp-action="Insert" method="post">
                     <div class="tweet-card">
                         <div class="tweet-content">
-                            <input type="text"  placeholder="Yorum Başlığı" />
+                            <input type="text" placeholder="Yorum Başlığı" />
                             <br />
-                            <input type="text"  placeholder="Yorumunuz" />
+                            <input type="text" placeholder="Yorumunuz" />
                         </div>
                         <div class="tweet-actions">
                             <button class="like-button" type="submit">Ekle</button>

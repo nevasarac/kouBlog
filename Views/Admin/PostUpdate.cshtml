@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "/Views/Shared/_LayoutvanGoghAdmin.cshtml";
 }
-@model kouBlog.Models.DTO.NewPostDto;
+@model kouBlog.Models.DTO.PostDto;
 
 <div class="container">
     <div class="center-card">
@@ -10,13 +10,13 @@
                 Yazı Güncelle
             </div>
             <div class="card-body">
-                @using (Html.BeginForm("NewPost", "Post", FormMethod.Post))
+                @using (Html.BeginForm("NewPost", "Admin", FormMethod.Post))
                 {
-                    @Html.TextBoxFor(m => m.PostName, new { @class = "form-control", placeholder = "Yeni Yazı Başlığı" })
-                    <br />
-                    @Html.TextBoxFor(m => m.PostContent, new { @class = "form-control", placeholder = "Yeni Yazı İçeriği" })
-                    <br />
-                    <button id="add-button" style="margin-left:10px;">Güncelleştir</button>
+                @Html.TextBoxFor(m => m.PostName, new { @class = "form-control", placeholder = "Yeni Yazı Başlığı" })
+                <br />
+                @Html.TextBoxFor(m => m.PostContent, new { @class = "form-control", placeholder = "Yeni Yazı İçeriği" })
+                <br />
+                <button id="add-button" style="margin-left:10px;">Güncelleştir</button>
                 }
             </div>
         </div>

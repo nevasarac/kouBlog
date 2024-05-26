@@ -10,7 +10,7 @@
                 Yeni Yazı
             </div>
             <div class="card-body">
-                @using (Html.BeginForm("NewPost", "Post", FormMethod.Post))
+                @using (Html.BeginForm("NewPost", "Admin", FormMethod.Post))
                 {
                     @Html.TextBoxFor(m => m.PostName, new { @class = "form-control", placeholder = "Yeni Yazı Başlığı" })
                     <br />
