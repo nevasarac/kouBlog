@@ -1,8 +1,5 @@
-using kouBlog.Models;
 using kouBlog.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Text;
 using kouBlog.kouBlog_Business.Abstract;
 using kouBlog.kouBlog_Entity.Concrete;
 using Microsoft.AspNetCore.Authorization;
@@ -47,6 +44,7 @@ namespace kouBlog.Controllers
             {
                 result.Add(new ResultPostDto()
                 {
+                    ID = post.ID,
                     UserID = post.UserID,
                     Header = post.Header,
                     Content = post.Content,
@@ -81,34 +79,35 @@ namespace kouBlog.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> PostDetail(int ID)
+        public async Task<IActionResult> PostDetail(int id)
         {
-            var post = _postService.SGetByID(ID);
             var userId = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var user = await _userManager.FindByIdAsync(userId);
-            PostDto tempPost = new PostDto()
+            var post = _postService.SGetByID(id);
+            var comments = _commentService.SGetList().Where(x => x.PostID == post.ID).ToList();
+            var postDto = new ResultPostDto()
             {
-                PostID = post.ID,
-                PostName = post.Header,
-                PostContent = post.Content,
-                PostNumberofLike = post.NumberOfLike,
-                PostWriterID = Convert.ToInt32(userId),
-                PostWriterName = user.UserName
+                ID = post.ID,
+                Content = post.Content,
+                Header = post.Header,
+                NumberOfLike = post.NumberOfLike,
+                WriterName = user.UserName,
+                Comments = comments.Where(x => x.PostID == post.ID).ToList()
             };
 
-            return View(tempPost);
+            return View(postDto);
         }
 
         [HttpGet]
-        public IActionResult PostUpdate(int ID)
+        public IActionResult PostUpdate(int id)
         {
-            var post = _postService.SGetByID(ID);
+            var post = _postService.SGetByID(id);
             var postDto = new PostDto()
             {
                 PostID = post.ID,
                 PostName = post.Header,
                 PostContent = post.Content,
-                PostWriterID = post.UserID,
+                PostWriternumber = post.UserID,
                 PostNumberofLike = post.NumberOfLike
             };
 
@@ -122,7 +121,7 @@ namespace kouBlog.Controllers
             var updatepost = new Post()
             {
                 ID = postDto.PostID,
-                UserID = postDto.PostWriterID,
+                UserID = postDto.PostWriternumber,
                 Header = postDto.PostName,
                 Content = postDto.PostContent,
                 NumberOfLike = postDto.PostNumberofLike
@@ -133,12 +132,68 @@ namespace kouBlog.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeletePost(int ID)
+        public IActionResult DeletePost(int id)
         {
-            var post = _postService.SGetByID(ID);
+            var post = _postService.SGetByID(id);
             _postService.SDelete(post);
 
             return RedirectToAction("Myposts", "Admin");
+        }
+        
+        public IActionResult LikePostDetail(int id)
+        {
+            var post = _postService.SGetByID(id);
+            post.NumberOfLike++;
+            _postService.SUpdate(post);
+
+            return RedirectToAction("Index", "Admin");
+        }
+        
+        public IActionResult LikePostMyPosts(int id)
+        {
+            var post = _postService.SGetByID(id);
+            post.NumberOfLike++;
+            _postService.SUpdate(post);
+
+            return RedirectToAction("Index", "Admin");
+        }
+        
+        public IActionResult LikePost(int id)
+        {
+            var post = _postService.SGetByID(id);
+            post.NumberOfLike++;
+            _postService.SUpdate(post);
+
+            return RedirectToAction("Index", "Admin");
+        }
+        
+        public IActionResult LikeComment(int id)
+        {
+            var comment = _commentService.SGetByID(id);
+            comment.NumberOfLike++;
+            _commentService.SUpdate(comment);
+            var postID = comment.PostID;
+
+            return RedirectToAction("Index", "Admin");
+        }
+        
+        public async Task<IActionResult> CommenttoPost(ResultPostDto resultPostDto)
+        {
+            var userId = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            var newComment = new Comment()
+            {
+                PostID = resultPostDto.ID,
+                Content = resultPostDto.NewPostContent,
+                UserID = Convert.ToInt32(userId),
+                UserName = "(ADMİN) " + user.UserName,
+                NumberOfLike = 0,
+            };
+            _commentService.SInsert(newComment);
+
+            var redirectUrl = "/Admin/PostDetail/" + resultPostDto.ID;
+
+            return Json(new { redirectUrl });
         }
     }
 }

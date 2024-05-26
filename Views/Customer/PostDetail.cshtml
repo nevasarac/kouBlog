@@ -2,6 +2,8 @@
     Layout = "/Views/Shared/_LayoutvanGoghCustomer.cshtml";
 }
 
+@model kouBlog.Models.DTO.ResultPostDto
+
 <div class="container">
     <div class="center-card">
         <div class="card">
@@ -11,34 +13,36 @@
             <div class="card-body">
                 <div class="tweet-card">
                     <div class="tweet-content">
-                        <h2>PostName</h2>
-                        <p>PostContent</p>
+                        <input type="hidden" value="@Model.ID"/>
+                        <h2>@Model.Header</h2>
+                        <p>@Model.Content</p>
                     </div>
                 </div>
                 <hr />
                 <h2>Yorumlar</h2>
-                <div class="tweet-card">
-                    <div class="tweet-content">
-                        <h2>CommentName</h2>
-                        <p>CommentContent</p>
-                    </div>
-                    <div class="tweet-actions">
-                        <a href="/Comment/LikeIt/CommentID" class="like-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);"><path d="M4 21h1V8H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2zM20 8h-7l1.122-3.368A2 2 0 0 0 12.225 2H12L7 7.438V21h11l3.912-8.596L22 12v-2a2 2 0 0 0-2-2z"></path></svg>
-                            <label>CommentNumberofLike</label>
-                        </a>
-                    </div>
-                </div>
-                <hr />
-
-                <h2>Yorum Ekle</h2>
-
-                <form method="post">
+                @foreach (var post in @Model.Comments)
+                {
                     <div class="tweet-card">
                         <div class="tweet-content">
-                            <input type="text" placeholder="Yorum Başlığı" />
+                            <h2>@post.UserName</h2>
+                            <p>@post.Content</p>
+                        </div>
+                        <div class="tweet-actions">
+                            <a href="/Customer/LikeComment/@post.ID" class="like-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);"><path d="M4 21h1V8H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2zM20 8h-7l1.122-3.368A2 2 0 0 0 12.225 2H12L7 7.438V21h11l3.912-8.596L22 12v-2a2 2 0 0 0-2-2z"></path></svg>
+                                <label>@post.NumberOfLike</label>
+                            </a>
+                        </div>
+                    </div>
+                }
+                <hr/>
+                <h2>Yorum Ekle</h2>
+                <form asp-controller="Customer" asp-action="CommenttoPost" method="post">
+                    <div class="tweet-card">
+                        <div class="tweet-content">
+                            <input type="text" asp-for="NewPostHeader" placeholder="Yorum Başlığı" />
                             <br />
-                            <input type="text" placeholder="Yorumunuz" />
+                            <input type="text" asp-for="NewPostContent" placeholder="Yorumunuz" />
                         </div>
                         <div class="tweet-actions">
                             <button class="like-button" type="submit">Ekle</button>

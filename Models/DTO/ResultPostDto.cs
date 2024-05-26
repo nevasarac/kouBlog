@@ -4,6 +4,8 @@ namespace kouBlog.Models.DTO;
 public class ResultPostDto
 {
     public int ID { get; set; }
+    
+    public int id { get; set; } 
     public int UserID { get; set; }
     public string Header { get; set; }
     public string Content { get; set; }

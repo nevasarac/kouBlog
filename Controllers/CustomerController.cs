@@ -1,8 +1,6 @@
 using kouBlog.Models;
 using kouBlog.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using ASP;
 using kouBlog.kouBlog_Business.Abstract;
 using kouBlog.kouBlog_Entity.Concrete;
 using Microsoft.AspNetCore.Authorization;
@@ -35,11 +33,11 @@ namespace kouBlog.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> PostDetail(int ID)
+        public async Task<IActionResult> PostDetail(int id)
         {
             var userId = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var user = await _userManager.FindByIdAsync(userId);
-            var post = _postService.SGetByID(ID);
+            var post = _postService.SGetByID(id);
             var comments = _commentService.SGetList().Where(x => x.PostID == post.ID).ToList();
             var postDto = new ResultPostDto()
             {
@@ -54,24 +52,36 @@ namespace kouBlog.Controllers
             return View(postDto);
         }
 
-        public IActionResult LikePost(int ID)
+        public IActionResult LikePost(int id)
         {
-            var post = _postService.SGetByID(ID);
+            var post = _postService.SGetByID(id);
             post.NumberOfLike++;
             _postService.SUpdate(post);
 
             return RedirectToAction("Index", "Customer");
         }
+        
+        public IActionResult LikeComment(int id)
+        {
+            var comment = _commentService.SGetByID(id);
+            comment.NumberOfLike++;
+            _commentService.SUpdate(comment);
+            var postID = comment.PostID;
 
-        public IActionResult CommenttoPost(ResultPostDto resultPostDto)
+            return RedirectToAction("Index", "Customer");
+        }
+
+        public async Task<IActionResult> CommenttoPost(ResultPostDto resultPostDto)
         {
             var userId = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userManager.FindByIdAsync(userId);
             var newComment = new Comment()
             {
                 PostID = resultPostDto.ID,
                 Content = resultPostDto.Content,
                 UserID = Convert.ToInt32(userId),
-                NumberOfLike = 0,
+                UserName = user.UserName,
+                NumberOfLike = 0
             };
             _commentService.SInsert(newComment);
 

@@ -9,7 +9,6 @@ namespace kouBlog.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
@@ -21,11 +20,6 @@ namespace kouBlog.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
-        }
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
         }
 
         public IActionResult Index()
@@ -79,10 +73,10 @@ namespace kouBlog.Controllers
             {
                 return View();
             }
-
+            
             AppUser newUser = new AppUser()
             {
-                UserName = registerDto.Name + " " + registerDto.Surname,
+                UserName = registerDto.Name + registerDto.Surname,
                 Email = registerDto.Mail,
             };
 
