@@ -8,7 +8,7 @@ Admin de yeni blog yazısı ekleme,silme ve güncelleme işlemleri yapabiliyor. 
 
 Admine giriş yapmak için gereken bilgiler:
 mail: froward37@gmail.com
-şifre: Emre0603
+şifre: Emre-0603
 
 
 Projeyi Yapanlar:
